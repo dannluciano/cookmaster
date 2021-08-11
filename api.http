@@ -1,0 +1,47 @@
+@BASE_URL = http://localhost:3000
+
+# 1 - Crie um endpoint para o cadastro de usuários
+
+### Castro de Usuarios com dados corretos
+POST {{BASE_URL}}/users
+Content-Type: application/json
+
+{
+  "name": "Dann Luciano",
+  "email": "dannluciano@betrybe.com",
+  "password": "12345678"
+}
+
+### Castro de Usuarios com e-mail aleatório
+POST {{BASE_URL}}/users
+Content-Type: application/json
+
+{
+  "name": "Dann Luciano",
+  "email": "{{$guid}}@betrybe.com",
+  "password": "12345678"
+}
+
+### Castro de Usuarios com dados invalidos
+POST {{BASE_URL}}/users
+Content-Type: application/json
+
+{
+  "name": "Dann Luciano"
+}
+
+### Castro de Usuarios sem dados
+POST {{BASE_URL}}/users
+Content-Type: application/json
+
+
+### Login
+# @name login
+POST {{baseUrl}}/api/login
+Content-Type: application/json
+
+{}
+
+###
+
+@authToken = {{login.response.body.token}}
