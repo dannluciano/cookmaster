@@ -26,16 +26,25 @@ module.exports = {
             return res.status(200).json(recipes);
         } catch (error) {
             return res.status(error.errorCode).json({ message: error.message });
-        } 
+        }
     },
     showRecipe: async (req, res) => {
         try {
-            const recipeId = req.params.id;
-            const recipe = await recipeService.getRecipeById(recipeId);
+            const { id } = req.params;
+            const recipe = await recipeService.getRecipeById(id);
             return res.status(200).json(recipe);
         } catch (error) {
             return res.status(error.errorCode).json({ message: error.message });
         }
     },
-    
+    updateRecipe: async (req, res) => {
+        try {
+            const { name, ingredients, preparation } = req.body;
+            const { id } = req.params;
+            const recipe = await recipeService.updateRecipe(id, { name, ingredients, preparation });
+            return res.status(200).json(recipe);
+        } catch (error) {
+            return res.status(error.errorCode).json({ message: error.message });
+        }
+    },
 };

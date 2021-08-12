@@ -28,4 +28,16 @@ module.exports = {
             throw new RecipeNotExistsException();
         }
     },
+    updateRecipe: async (id, data) => {
+        try {
+            const recipe = await RecipeModel.findById(id).exec();
+            recipe.name = data.name;
+            recipe.ingredients = data.ingredients;
+            recipe.preparation = data.preparation;
+            await recipe.save();
+            return recipe;
+        } catch (error) {
+            throw new RecipeNotExistsException();
+        }
+    },
 };
