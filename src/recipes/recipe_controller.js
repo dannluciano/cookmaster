@@ -20,4 +20,9 @@ module.exports = {
             return res.status(error.errorCode).json({ message: error.message });
         }
     },
+    listRecipes: async (req, res) => {
+        const recipes = await recipeService.getAllRecipes();
+        return res.status(200).json(recipes);
+    },
+    
 };

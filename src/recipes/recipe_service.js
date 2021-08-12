@@ -16,4 +16,8 @@ module.exports = {
             throw new RecipeGenericException();
         }
     },
+    getAllRecipes: async () => {
+        const recipes = RecipeModel.find();
+        return recipes;
+    },
 };
