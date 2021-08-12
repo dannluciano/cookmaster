@@ -8,7 +8,13 @@ function AuthenticationGenericException() {
     this.message = 'All fields must be filled';
 }
 
+function AuthenticationTokenException() {
+    this.errorCode = 401;
+    this.message = 'jwt malformed';
+}
+
 module.exports = {
     AuthenticationFailException,
     AuthenticationGenericException,
+    AuthenticationTokenException,
 };

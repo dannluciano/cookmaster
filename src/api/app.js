@@ -5,6 +5,9 @@ const configs = require('../configs');
 
 const userController = require('../users/user_controller');
 const authenticationController = require('./authentication/authentication_controller');
+const recipesController = require('../recipes/recipe_controller');
+
+const authenticationMiddleware = require('./authentication/authentication_middleware');
 
 mongoose.set('useCreateIndex', true);
 mongoose.connect(configs.MONGO_DB_URL, { useNewUrlParser: true, useUnifiedTopology: true });
@@ -24,6 +27,6 @@ app.get('/', (request, response) => {
 
 app.post('/users', userController.createUser);
 app.post('/login', authenticationController.login);
-
+app.post('/recipes', authenticationMiddleware.requireLogin, recipesController.createRecipe);
 
 module.exports = app;

@@ -50,3 +50,26 @@ Content-Type: application/json
 ###
 
 @authToken = {{login.response.body.token}}
+
+# 3 - Crie um endpoint para o cadastro de receitas
+
+### 
+POST {{BASE_URL}}/recipes
+Content-Type: application/json
+
+{
+    "name": "Galinha Caipira",
+    "ingredients": "Galinha",
+    "preparation": "Magic!"
+}
+
+### 
+POST {{BASE_URL}}/recipes
+Content-Type: application/json
+Authorization: {{authToken}}
+
+{
+    "name": "Galinha Caipira",
+    "ingredients": "Galinha",
+    "preparation": "Magic!"
+}
