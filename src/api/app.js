@@ -43,5 +43,9 @@ app.put('/recipes/:id',
   recipeMiddleware.loadRecipe, 
   recipeMiddleware.isOwnerOrAdmin, 
   recipesController.updateRecipe);
+app.delete('/recipes/:id', 
+  recipeMiddleware.loadRecipe,
+  recipeMiddleware.isOwnerOrAdmin,
+  recipesController.destroyRecipe);
 
 module.exports = app;
