@@ -47,4 +47,14 @@ module.exports = {
             return res.status(error.errorCode).json({ message: error.message });
         }
     },
+    destroyRecipe: async (req, res) => {
+        try {
+            const { id } = req.params;
+            await recipeService.destroyRecipe(id);
+            res.status(204).json();
+        } catch (error) {
+            return res.status(error.errorCode).json({ message: error.message });
+        }
+    },
+
 };

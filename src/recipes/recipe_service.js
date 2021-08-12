@@ -40,4 +40,11 @@ module.exports = {
             throw new RecipeNotExistsException();
         }
     },
+    destroyRecipe: async (id) => {
+        try {
+            await RecipeModel.findByIdAndDelete(id).exec();
+        } catch (error) {
+            throw new RecipeNotExistsException();
+        }
+    },
 };
