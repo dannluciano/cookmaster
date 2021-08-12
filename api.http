@@ -35,12 +35,17 @@ POST {{BASE_URL}}/users
 Content-Type: application/json
 
 
+# 2 - Crie um endpoint para o login de usuários
+
 ### Login
 # @name login
-POST {{baseUrl}}/api/login
+POST {{BASE_URL}}/login
 Content-Type: application/json
 
-{}
+{
+  "email": "dannluciano@betrybe.com",
+  "password": "12345678"
+}
 
 ###
 
