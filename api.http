@@ -69,7 +69,12 @@ Content-Type: application/json
 Authorization: {{authToken}}
 
 {
-    "name": "Galinha Caipira",
-    "ingredients": "Galinha",
-    "preparation": "Magic!"
+    "name": "{{$guid}}",
+    "ingredients": "{{$guid}}",
+    "preparation": "{{$guid}}"
 }
+
+###
+GET {{BASE_URL}}/recipes
+Content-Type: application/json
+Authorization: {{authToken}}
