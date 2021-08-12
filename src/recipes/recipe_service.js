@@ -1,5 +1,5 @@
 const RecipeModel = require('./recipe_model');
-const { RecipeGenericException } = require('./recipe_exeptions');
+const { RecipeGenericException, RecipeNotExistsException } = require('./recipe_exeptions');
 
 module.exports = {
     createRecipe: async (recipe) => {
@@ -17,7 +17,15 @@ module.exports = {
         }
     },
     getAllRecipes: async () => {
-        const recipes = RecipeModel.find();
+        const recipes = await RecipeModel.find();
         return recipes;
+    },
+    getRecipeById: async (id) => {
+        try {
+            const recipe = await RecipeModel.findById(id).exec();
+            return recipe;
+        } catch (error) {
+            throw new RecipeNotExistsException();
+        }
     },
 };
