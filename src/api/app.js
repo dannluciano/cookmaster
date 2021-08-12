@@ -1,5 +1,5 @@
-const path = require('path');
 const express = require('express');
+const multer = require('multer');
 const mongoose = require('mongoose');
 const configs = require('../configs');
 
@@ -20,7 +20,18 @@ db.on('error', console.error.bind(console, '[DataBase] connection error:'));
 const app = express();
 
 app.use(express.json());
-app.use('/images', express.static(path.join(__dirname, '..', 'uploads')));
+app.use('/images', express.static(configs.UPLOAD_DIR));
+
+const storage = multer.diskStorage({
+  destination(req, file, cb) {
+    cb(null, configs.UPLOAD_DIR);
+  },
+  filename(req, file, cb) {
+    cb(null, `${req.recipe.id}.jpeg`);
+  },
+});
+
+const upload = multer({ storage });
 
 // Não remover esse end-point, ele é necessário para o avaliador
 app.get('/', (request, response) => {
@@ -47,5 +58,10 @@ app.delete('/recipes/:id',
   recipeMiddleware.loadRecipe,
   recipeMiddleware.isOwnerOrAdmin,
   recipesController.destroyRecipe);
+app.put('/recipes/:id/image/', 
+  recipeMiddleware.loadRecipe,
+  recipeMiddleware.isOwnerOrAdmin,
+  upload.single('image'),
+  recipesController.addImageToRecipe);
 
 module.exports = app;

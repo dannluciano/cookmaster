@@ -17,6 +17,9 @@ const recipeSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User',
     },
+    image: {
+        type: String,
+    },
 });
 
 const RecipeMode = mongoose.model('Recipe', recipeSchema);

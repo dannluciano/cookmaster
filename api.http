@@ -78,3 +78,15 @@ Authorization: {{authToken}}
 GET {{BASE_URL}}/recipes
 Content-Type: application/json
 Authorization: {{authToken}}
+
+### 9 - Crie um endpoint para a adição de uma imagem a uma receita
+PUT {{BASE_URL}}/recipes/61156ae0848ae454c10f4c20/image/
+Authorization: {{authToken}}
+Content-Type: multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW
+
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="image"; filename="ratinho.jpg"
+Content-Type: image/jpeg
+
+< ./src/uploads/ratinho.jpg
+------WebKitFormBoundary7MA4YWxkTrZu0gW--
