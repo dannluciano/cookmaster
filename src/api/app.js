@@ -8,6 +8,7 @@ const authenticationController = require('./authentication/authentication_contro
 const recipesController = require('../recipes/recipe_controller');
 
 const authenticationMiddleware = require('./authentication/authentication_middleware');
+const recipeMiddleware = require('../recipes/recipe_middleware');
 
 const databaseURL = configs.MONGO_DB_URL + configs.DB_NAME;
 
@@ -27,10 +28,20 @@ app.get('/', (request, response) => {
 });
 // Não remover esse end-point, ele é necessário para o avaliador
 
-app.post('/users', userController.createUser);
-app.post('/login', authenticationController.login);
-app.get('/recipes', recipesController.listRecipes);
-app.get('/recipes/:id', recipesController.showRecipe);
-app.post('/recipes', authenticationMiddleware.requireLogin, recipesController.createRecipe);
+app.post('/users', 
+  userController.createUser);
+app.post('/login', 
+  authenticationController.login);
+app.get('/recipes', 
+  recipesController.listRecipes);
+app.get('/recipes/:id', 
+  recipesController.showRecipe);
+app.post('/recipes', 
+  authenticationMiddleware.requireLogin, 
+  recipesController.createRecipe);
+app.put('/recipes/:id', 
+  recipeMiddleware.loadRecipe, 
+  recipeMiddleware.isOwnerOrAdmin, 
+  recipesController.updateRecipe);
 
 module.exports = app;
