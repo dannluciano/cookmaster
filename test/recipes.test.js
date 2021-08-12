@@ -1283,7 +1283,7 @@ describe('10 - Crie um endpoint para acessar a imagem de uma receita', () => {
     await connection.close();
   });
 
-  it.skip('Será validado que é retornada uma imagem como resposta', async () => {
+  it('Será validado que é retornada uma imagem como resposta', async () => {
     const photoFile = path.resolve(__dirname, '../src/uploads/ratinho.jpg');
     const content = fs.createReadStream(photoFile);
     const formData = frisby.formData();
