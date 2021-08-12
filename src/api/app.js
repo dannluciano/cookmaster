@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 const configs = require('../configs');
 
 const userController = require('../users/user_controller');
+const authenticationController = require('./authentication/authentication_controller');
 
 mongoose.set('useCreateIndex', true);
 mongoose.connect(configs.MONGO_DB_URL, { useNewUrlParser: true, useUnifiedTopology: true });
@@ -22,5 +23,7 @@ app.get('/', (request, response) => {
 // Não remover esse end-point, ele é necessário para o avaliador
 
 app.post('/users', userController.createUser);
+app.post('/login', authenticationController.login);
+
 
 module.exports = app;

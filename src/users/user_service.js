@@ -21,4 +21,8 @@ module.exports = {
             throw new UserGenericException();
         }
     },
+    findUser: async (email) => {
+        const user = await UserModel.findOne({ email }).exec();
+        return user;
+    },
 };
