@@ -9,8 +9,10 @@ const recipesController = require('../recipes/recipe_controller');
 
 const authenticationMiddleware = require('./authentication/authentication_middleware');
 
+const databaseURL = configs.MONGO_DB_URL + configs.DB_NAME;
+
 mongoose.set('useCreateIndex', true);
-mongoose.connect(configs.MONGO_DB_URL, { useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.connect(databaseURL, { useNewUrlParser: true, useUnifiedTopology: true });
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, '[DataBase] connection error:'));
 
