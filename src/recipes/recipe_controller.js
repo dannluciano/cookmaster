@@ -1,5 +1,6 @@
 const recipeService = require('./recipe_service');
 const { RecipeGenericException } = require('./recipe_exeptions');
+const { UPLOAD_PATH } = require('../configs');
 
 module.exports = {
     createRecipe: async (req, res) => {
@@ -56,5 +57,13 @@ module.exports = {
             return res.status(error.errorCode).json({ message: error.message });
         }
     },
-
+    addImageToRecipe: (req, res) => {
+        try {
+            req.recipe.image = UPLOAD_PATH + req.file.filename;
+            req.recipe.save();
+            res.status(200).json(req.recipe);
+        } catch (error) {
+            return res.status(error.errorCode).json({ message: error.message });
+        }
+    },
 };
