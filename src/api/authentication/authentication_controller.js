@@ -17,7 +17,7 @@ module.exports = {
             const userPresenter = await authenticate(user, password);
             const token = await jwt.sign(userPresenter, JWT_SECRET);
 
-            return res.status(200).json(token);
+            return res.status(200).json({ token });
         } catch (error) {
             return res.status(error.errorCode).json({ message: error.message });
         }
