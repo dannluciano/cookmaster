@@ -10,7 +10,7 @@ module.exports = {
                 throw new RecipeGenericException();
             }
             await recipeModel.save();
-            
+
             return recipeModel;
         } catch (error) {
             throw new RecipeGenericException();
@@ -23,6 +23,9 @@ module.exports = {
     getRecipeById: async (id) => {
         try {
             const recipe = await RecipeModel.findById(id).exec();
+            if (!recipe) {
+                throw new RecipeNotExistsException();
+            }
             return recipe;
         } catch (error) {
             throw new RecipeNotExistsException();
@@ -31,6 +34,9 @@ module.exports = {
     updateRecipe: async (id, data) => {
         try {
             const recipe = await RecipeModel.findById(id).exec();
+            if (!recipe) {
+                throw new RecipeNotExistsException();
+            }
             recipe.name = data.name;
             recipe.ingredients = data.ingredients;
             recipe.preparation = data.preparation;
@@ -42,7 +48,10 @@ module.exports = {
     },
     destroyRecipe: async (id) => {
         try {
-            await RecipeModel.findByIdAndDelete(id).exec();
+            const recipe = await RecipeModel.findByIdAndDelete(id).exec();
+            if (!recipe) {
+                throw new RecipeNotExistsException();
+            }
         } catch (error) {
             throw new RecipeNotExistsException();
         }
