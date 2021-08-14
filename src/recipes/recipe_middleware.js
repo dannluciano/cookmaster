@@ -10,8 +10,7 @@ module.exports = {
             req.recipe = recipe;
             next();
         } catch (e) {
-            console.log(e);
-            return res.status(401).json({ message: 'jwt malformed' });
+            return res.status(e.errorCode).json({ message: e.message });
         }
     },
     isOwnerOrAdmin: (req, res, next) => {
@@ -23,7 +22,6 @@ module.exports = {
             }
 
             const payload = jwt.verify(token, JWT_SECRET);
-
             req.currentUser = payload;
 
             const isAdmin = req.currentUser.role === 'admin';

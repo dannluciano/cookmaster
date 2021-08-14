@@ -9,15 +9,15 @@ module.exports = {
             if (errors) {
                 throw new UserGenericException();
             }
-            await userModel.save();
-            const { name, email, role, _id } = userModel;
-            return {
-                user: { name, email, role, _id },
-            };
-        } catch (error) {
-            if (error.code === 11000) {
+            const userExist = await UserModel.findOne({ email: user.email });
+            if (userExist) {
                 throw new UserEmailAlreadyRegisteredException();
             }
+            await userModel.save();
+            const { name, email, role, _id } = userModel;
+            return { user: { name, email, role, _id } };
+        } catch (error) {
+            if (error instanceof UserEmailAlreadyRegisteredException) { throw error; }
             throw new UserGenericException();
         }
     },

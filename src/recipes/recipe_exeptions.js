@@ -3,9 +3,12 @@ function RecipeGenericException() {
     this.message = 'Invalid entries. Try again.';
 }
 
-function RecipeNotExistsException() {
-    this.errorCode = 404;
-    this.message = 'recipe not found';
+class RecipeNotExistsException extends Error {
+    constructor() {
+        super();
+        this.errorCode = 404;
+        this.message = 'recipe not found';
+    }
 }
 
 module.exports = {
