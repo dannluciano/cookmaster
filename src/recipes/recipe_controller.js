@@ -56,7 +56,7 @@ module.exports = {
     },
     addImageToRecipe: (req, res) => {
         try {
-            req.recipe.image = UPLOAD_PATH + req.file.filename;
+            req.recipe.image = UPLOAD_PATH.replace('/src/uploads/', '/images/') + req.file.filename;
             req.recipe.save();
             res.status(200).json(req.recipe);
         } catch (error) {

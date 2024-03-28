@@ -1,0 +1,97 @@
+@BASE_URL = http://cookmaster.dannluciano.com.br
+
+# 1 - Crie um endpoint para o cadastro de usuários
+
+### Castro de Usuarios com dados corretos
+POST {{BASE_URL}}/users
+Content-Type: application/json
+
+{
+  "name": "Dann Luciano",
+  "email": "dannluciano@betrybe.com",
+  "password": "12345678"
+}
+
+### Castro de Usuarios com e-mail aleatório
+POST {{BASE_URL}}/users
+Content-Type: application/json
+
+{
+  "name": "Dann Luciano",
+  "email": "{{$guid}}@betrybe.com",
+  "password": "12345678"
+}
+
+### Castro de Usuarios com dados invalidos
+POST {{BASE_URL}}/users
+Content-Type: application/json
+
+{
+  "name": "Dann Luciano"
+}
+
+### Castro de Usuarios sem dados
+POST {{BASE_URL}}/users
+Content-Type: application/json
+
+
+# 2 - Crie um endpoint para o login de usuários
+
+### Login
+# @name login
+POST {{BASE_URL}}/login
+Content-Type: application/json
+
+{
+  "email": "dannluciano@betrybe.com",
+  "password": "12345678"
+}
+
+###
+
+@authToken = {{login.response.body.token}}
+
+# 3 - Crie um endpoint para o cadastro de receitas
+
+### 
+POST {{BASE_URL}}/recipes
+Content-Type: application/json
+
+{
+    "name": "Galinha Caipira",
+    "ingredients": "Galinha",
+    "preparation": "Magic!"
+}
+
+### 
+# @name create_recipe
+POST {{BASE_URL}}/recipes
+Content-Type: application/json
+Authorization: {{authToken}}
+
+{
+    "name": "{{$guid}}",
+    "ingredients": "{{$guid}}",
+    "preparation": "{{$guid}}"
+}
+
+###
+
+@recipeId = {{create_recipe.response.body.recipe._id}}
+
+###
+GET {{BASE_URL}}/recipes
+Content-Type: application/json
+Authorization: {{authToken}}
+
+### 9 - Crie um endpoint para a adição de uma imagem a uma receita
+PUT {{BASE_URL}}/recipes/{{recipeId}}/image/
+Authorization: {{authToken}}
+Content-Type: multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW
+
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="image"; filename="ratinho.jpg"
+Content-Type: image/jpeg
+
+< ./src/uploads/ratinho.jpg
+------WebKitFormBoundary7MA4YWxkTrZu0gW--
