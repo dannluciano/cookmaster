@@ -10,7 +10,7 @@ const recipesController = require('../recipes/recipe_controller');
 const authenticationMiddleware = require('./authentication/authentication_middleware');
 const recipeMiddleware = require('../recipes/recipe_middleware');
 
-const databaseURL = configs.MONGO_DB_URL + configs.DB_NAME;
+const databaseURL = configs.MONGO_DB_URL;
 
 mongoose.set('useCreateIndex', true);
 mongoose.connect(databaseURL, { useNewUrlParser: true, useUnifiedTopology: true });
