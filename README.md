@@ -1,10 +1,48 @@
-### Termos e acordos
+# CookMaster API
 
-Ao iniciar este projeto, você concorda com as diretrizes do Código de Ética e Conduta e do Manual da Pessoa Estudante da Trybe
+## URL Base
+
+http://cookmaster.dannluciano.com.br/
+
+## Endpoints
+
+| Methodo HTTP | Caminho              | Nome                              | Dados Necessarios                                                           |
+| ------------ | -------------------- | --------------------------------- | --------------------------------------------------------------------------- |
+| GET          | /recipes             | Listar Todas as Receitas          |                                                                             |
+| GET          | /recipes/{id}        | Pegar uma Receita                 | Identificador da Receita                                                    |
+| POST         | /users               | Criar um Novo Usuario             | JSON com {name, email, password}                                            |
+| POST         | /login               | Autenticação/Entrar               | JSON com {email, password}                                                  |
+| POST         | /recipes             | Criar uma Nova Receita            | Token e JSON com {name, ingredients, preparation}                           |
+| DELETE       | /recipes/{id}        | Deletar uma Receita               | Identificador da Receita e Token                                            |
+| PUT          | /recipes/{id}        | Atualizar uma Receita             | Identificador da Receita, Token e JSON com {name, ingredients, preparation} |
+| PUT          | /recipes/{id}/image/ | Atualizar a Imagem de uma Receita | Identificador da Receita, Token e Binario da Imagem                         |
+
+## Token
+
+Cabeçalho Authorization com o contéudo do Token devolvido no Login por exemplo:
+
+```
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
+```
+
+## Imagens
+
+Imagem Deve ser Enviada no Formato multipart/form-data como por exemplo
+
+```
+Content-Type: multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW
+
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="image"; filename="ratinho.jpg"
+Content-Type: image/jpeg
+
+...Conteúdo da Imagem/ Binario ...
+------WebKitFormBoundary7MA4YWxkTrZu0gW--
+```
 
 # Boas vindas ao repositório do projeto Cookmaster!
 
-Você já usa o GitHub diariamente para desenvolver os exercícios, certo? Agora, para desenvolver os projetos, você deverá seguir as instruções a seguir. Fique atento a cada passo, e se tiver qualquer dúvida, nos envie por Slack! #vqv 🚀
+Você já usa o GitHub diariamente para desenvolver os exercícios, certo? Agora, para desenvolver os projetos, você deverá seguir as instruções a seguir. Fique atento a cada passo, e se tiver qualquer dúvida, nos envie! #vqv 🚀
 
 Aqui você vai encontrar os detalhes de como estruturar o desenvolvimento do seu projeto a partir deste repositório, utilizando uma branch específica e um Pull Request para colocar seus códigos.
 
@@ -75,8 +113,6 @@ Neste projeto, você será capaz de:
 
 Para entregar o seu projeto você deverá criar um Pull Request neste repositório.
 
-Lembre-se que você pode consultar nosso conteúdo sobre [Git & GitHub](https://app.betrybe.com/course/fundamentals/git) sempre que precisar!
-
 ---
 
 ## O que deverá ser desenvolvido
@@ -138,7 +174,7 @@ Deverá ser possível adicionar uma imagem à uma receita, utilizando o upload d
 
 1. Clone o repositório
 
-- `git clone https://github.com/tryber/sd-0x-cookmaster.git`.
+- `git clone https://github.com/dannluciano/cookmaster.git`.
 - Entre na pasta do repositório que você acabou de clonar:
   - `cd sd-0x-cookmaster`
 
@@ -154,7 +190,7 @@ Deverá ser possível adicionar uma imagem à uma receita, utilizando o upload d
   - Exemplo: `git checkout master`
 - Agora crie uma branch à qual você vai submeter os `commits` do seu projeto
   - Você deve criar uma branch no seguinte formato: `nome-de-usuario-nome-do-projeto`
-  - Exemplo: `git checkout -b joaozinho-sd-0x-cookmaster`
+  - Exemplo: `git checkout -b joaozinho-cookmaster`
 
 4. Adicione as mudanças ao _stage_ do Git e faça um `commit`
 
@@ -171,17 +207,17 @@ Deverá ser possível adicionar uma imagem à uma receita, utilizando o upload d
 
 5. Adicione a sua branch com o novo `commit` ao repositório remoto
 
-- Usando o exemplo anterior: `git push -u origin joaozinho-sd-0x-cookmaster`
+- Usando o exemplo anterior: `git push -u origin joaozinho-cookmaster`
 
 6. Crie um novo `Pull Request` _(PR)_
 
-- Vá até a página de _Pull Requests_ do [repositório no GitHub](https://github.com/tryber/sd-0x-cookmaster/pulls)
+- Vá até a página de _Pull Requests_ do [repositório no GitHub](https://github.com/dannluciano/cookmaster/pulls)
 - Clique no botão verde _"New pull request"_
 - Clique na caixa de seleção _"Compare"_ e escolha a sua branch **com atenção**
 - Clique no botão verde _"Create pull request"_
 - Adicione uma descrição para o _Pull Request_ e clique no botão verde _"Create pull request"_
 - **Não se preocupe em preencher mais nada por enquanto!**
-- Volte até a [página de _Pull Requests_ do repositório](https://github.com/tryber/sd-0x-cookmaster/pulls) e confira que o seu _Pull Request_ está criado
+- Volte até a [página de _Pull Requests_ do repositório](https://github.com/dannluciano/cookmaster/pulls) e confira que o seu _Pull Request_ está criado
 
 ---
 
@@ -820,24 +856,12 @@ Para sinalizar que o seu projeto está pronto para o _"Code Review"_ dos seus co
 
   * No menu à direita, clique no _link_ **"Assignees"** e escolha **o seu usuário**;
 
-  * No menu à direita, clique no _link_ **"Reviewers"** e digite `students`, selecione o time `tryber/students-sd-00`.
-
-Caso tenha alguma dúvida, [aqui tem um video explicativo](https://vimeo.com/362189205).
-
 ---
-
-# Revisando um pull request
-
-Use o conteúdo sobre [Code Review](https://course.betrybe.com/real-life-engineer/code-review/) para te ajudar a revisar os _Pull Requests_.
 
 #VQV
 
 ---
 
 # Avisos finais
-
-Ao finalizar e submeter o projeto, não se esqueça de avaliar sua experiência preenchendo o formulário. Leva menos de 3 minutos!
-
-Link: [FORMULÁRIO DE AVALIAÇÃO DE PROJETO](https://be-trybe.typeform.com/to/ZTeR4IbH)
 
 O avaliador automático não necessariamente avalia seu projeto na ordem em que os requisitos aparecem no readme. Isso acontece para deixar o processo de avaliação mais rápido. Então, não se assuste se isso acontecer, ok?
