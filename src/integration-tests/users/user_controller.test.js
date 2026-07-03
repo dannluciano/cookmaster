@@ -1,67 +1,62 @@
-const assert = require('assert/strict');
-const { FakeRes } = require('../test_utils');
-const dbHandler = require('../db_utils');
-const { createUser } = require('../../users/user_controller');
+const assert = require("assert/strict");
+const { FakeRes } = require("../test_utils");
+const dbHandler = require("../db_utils");
+const { createUser } = require("../../users/user_controller");
 
+describe("User Controller", () => {
+	before(async () => await dbHandler.connect());
 
-describe('User Controller', () => {
+	afterEach(async () => await dbHandler.clearDatabase());
 
-    before(async () => await dbHandler.connect());
+	after(async () => await dbHandler.closeDatabase());
 
-    afterEach(async () => await dbHandler.clearDatabase());
+	describe("#createUser", () => {
+		it("Without data", async () => {
+			const fakeReq = {
+				body: {},
+			};
+			const fakeRes = new FakeRes();
 
-    after(async () => await dbHandler.closeDatabase());
+			await createUser(fakeReq, fakeRes);
 
-    describe('#createUser', () => {
-        it('Without data', async () => {
-            const fakeReq = {
-                body: {
-                },
-            }
-            const fakeRes = new FakeRes()
+			assert.equal(fakeRes.status(), 400);
+			assert.equal(fakeRes.body.message, "Invalid entries. Try again.");
+		});
 
-            await createUser(fakeReq, fakeRes)
+		it("With Valid data", async () => {
+			const fakeReq = {
+				body: {
+					name: "Dann Luciano",
+					email: "dannluciano@betrybe.com",
+					password: "12345678",
+				},
+			};
+			const fakeRes = new FakeRes();
 
-            assert.equal(fakeRes.status(), 400)
-            assert.equal(fakeRes.body.message, 'Invalid entries. Try again.')
-        })
+			await createUser(fakeReq, fakeRes);
 
-        it('With Valid data', async () => {
-            const fakeReq = {
-                body: {
-                    name: 'Dann Luciano',
-                    email: 'dannluciano@betrybe.com',
-                    password: '12345678',
-                },
-            }
-            const fakeRes = new FakeRes()
+			assert.equal(fakeRes.status(), 201);
+			assert.equal(fakeRes.body.user.name, "Dann Luciano");
+		});
 
-            await createUser(fakeReq, fakeRes)
+		it("With Valid data twice", async () => {
+			const fakeReq = {
+				body: {
+					name: "Dann Luciano",
+					email: "dannluciano@betrybe.com",
+					password: "12345678",
+				},
+			};
+			const fakeRes1 = new FakeRes();
+			const fakeRes2 = new FakeRes();
+			await createUser(fakeReq, fakeRes1);
+			await createUser(fakeReq, fakeRes2);
 
-            assert.equal(fakeRes.status(), 201)
-            assert.equal(fakeRes.body.user.name, 'Dann Luciano')
-        })
+			assert.equal(fakeRes1.status(), 201);
+			assert.equal(fakeRes1.body.user.name, "Dann Luciano");
 
-        it('With Valid data twice', async () => {
-            const fakeReq = {
-                body: {
-                    name: 'Dann Luciano',
-                    email: 'dannluciano@betrybe.com',
-                    password: '12345678',
-                },
-            }
-            const fakeRes1 = new FakeRes()
-            const fakeRes2 = new FakeRes()
-            await createUser(fakeReq, fakeRes1)
-            await createUser(fakeReq, fakeRes2)
-
-            assert.equal(fakeRes1.status(), 201)
-            assert.equal(fakeRes1.body.user.name, 'Dann Luciano')
-
-            assert.equal(fakeRes2.status(), 409)
-            assert.equal(fakeRes2.body.message, 'Email already registered')
-        })
-
-
-    })
-})
+			assert.equal(fakeRes2.status(), 409);
+			assert.equal(fakeRes2.body.message, "Email already registered");
+		});
+	});
+});
