@@ -38,26 +38,26 @@ app.get('/', (request, response) => {
 });
 // Não remover esse end-point, ele é necessário para o avaliador
 
-app.post('/users', 
+app.post('/users',
   userController.createUser);
-app.post('/login', 
+app.post('/login',
   authenticationController.login);
-app.get('/recipes', 
+app.get('/recipes',
   recipesController.listRecipes);
-app.get('/recipes/:id', 
+app.get('/recipes/:id',
   recipesController.showRecipe);
-app.post('/recipes', 
-  authenticationMiddleware.requireLogin, 
+app.post('/recipes',
+  authenticationMiddleware.requireLogin,
   recipesController.createRecipe);
-app.put('/recipes/:id', 
-  recipeMiddleware.loadRecipe, 
-  recipeMiddleware.isOwnerOrAdmin, 
+app.put('/recipes/:id',
+  recipeMiddleware.loadRecipe,
+  recipeMiddleware.isOwnerOrAdmin,
   recipesController.updateRecipe);
-app.delete('/recipes/:id', 
+app.delete('/recipes/:id',
   recipeMiddleware.loadRecipe,
   recipeMiddleware.isOwnerOrAdmin,
   recipesController.destroyRecipe);
-app.put('/recipes/:id/image/', 
+app.put('/recipes/:id/image/',
   recipeMiddleware.loadRecipe,
   recipeMiddleware.isOwnerOrAdmin,
   upload.single('image'),
