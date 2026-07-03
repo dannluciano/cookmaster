@@ -1,4 +1,4 @@
-@BASE_URL = http://cookmaster.dannluciano.com.br
+@BASE_URL = https://cookmaster.casa.dannluciano.com.br
 
 # 1 - Crie um endpoint para o cadastro de usuários
 
