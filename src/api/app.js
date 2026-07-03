@@ -12,8 +12,7 @@ const recipeMiddleware = require('../recipes/recipe_middleware');
 
 const databaseURL = configs.MONGO_DB_URL;
 
-mongoose.set('useCreateIndex', true);
-mongoose.connect(databaseURL, { useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.connect(databaseURL, {});
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, '[DataBase] connection error:'));
 

@@ -3,10 +3,7 @@ const mongoose = require('mongoose');
 module.exports.connect = async () => {
     const mongoDbUrl = 'mongodb://localhost:27017/Cookmaster';
 
-    const mongooseOpts = {
-        useNewUrlParser: true,
-        useUnifiedTopology: true,
-    };
+    const mongooseOpts = {};
 
     mongoose.set('useCreateIndex', true);
     await mongoose.connect(mongoDbUrl, mongooseOpts);
